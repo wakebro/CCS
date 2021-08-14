@@ -19,6 +19,6 @@
 			</tr>
 		</table>
 	</form>
-	<a href="#">회원가입</a>
+	<a href="/ccs/join.do">회원가입</a>
 </body>
 </html>

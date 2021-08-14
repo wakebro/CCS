@@ -1,7 +1,7 @@
 package com.hgs;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hgs.user.service.LoginService;
-import com.hgs.user.service.UService;
+import com.hgs.user.service.*;
 
 /**
  * Servlet implementation class Controller
@@ -34,7 +33,7 @@ public class Controller extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		PrintWriter out = response.getWriter();
+		//PrintWriter out = response.getWriter();
 		
 		String uri = request.getRequestURI();
 		System.out.println("URI 패턴 : " + uri);
@@ -44,6 +43,9 @@ public class Controller extends HttpServlet {
 		// 로그인
 		if(uri.equals("/ccs/login_proc.do")) {
 			uService = new LoginService();
+			uService.execute(request, response);
+		} else if (uri.equals("/ccs/join.do")) {
+			uService = new JoinService();
 			uService.execute(request, response);
 		}
 	}
