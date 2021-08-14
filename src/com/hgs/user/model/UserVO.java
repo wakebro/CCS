@@ -1,4 +1,4 @@
-package cm.hgs.user.model;
+package com.hgs.user.model;
 
 public class UserVO {
 	private String name;

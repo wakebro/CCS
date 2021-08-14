@@ -1,4 +1,4 @@
-package cm.hgs.user.model;
+package com.hgs.user.model;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,11 +8,14 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.hgs.dept.model.DeptVO;
+import com.hgs.user.model;
+
 public class UserDAO {
 
 	private DataSource ds;
 
-	public UserDAO() {
+	private UserDAO() {
 		try {
 			Context ct = new InitialContext();
 			ds = (DataSource) ct.lookup("java:comp/env/jdbc/mysql");
@@ -23,16 +26,15 @@ public class UserDAO {
 
 	private static UserDAO dao = new UserDAO();
 
-	public UserDAO getinstance() {
+	public static UserDAO getInstace() {
 		return dao;
 	}
-
-	public List<String> getDept() {
-		System.out.println("getDept실행");
+	// 회원가입 부서정보
+	public List<DeptVO> getDept() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<String> result = new ArrayList<String>();
+		List<DeptVO> result = new ArrayList<DeptVO>();
 		String sql = "SELECT * FROM dept";
 
 		try {
@@ -40,13 +42,33 @@ public class UserDAO {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				String dept;
-				dept = rs.getString("name");
+				DeptVO dept = new DeptVO();
+				dept.setDept_no(rs.getInt("dept_no"));
+				dept.setDept_name(rs.getString("name"));
 				result.add(dept);
 			}
 		} catch (SQLException e) {
 			System.out.println("에러코드 : " + e);
+		} finally {
+			try {
+				if (con != null && !con.isClosed()) {
+					con.close();
+				}
+				if (pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+				if (rs != null && !rs.isClosed()) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return result;
 	}// end getDept
+	// 회원가입
+	public void join(UserVO user) {
+		
+	}
+
 }

@@ -3,6 +3,7 @@ package com.hgs;
 import java.io.IOException;
 //import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,15 +40,27 @@ public class Controller extends HttpServlet {
 		System.out.println("URI 패턴 : " + uri);
 		
 		UService uService = null;
-		
+		String url = "";
 		// 로그인
 		if(uri.equals("/ccs/login_proc.do")) {
 			uService = new LoginService();
 			uService.execute(request, response);
-		} else if (uri.equals("/ccs/join.do")) {
+		} 
+		// 회원가입 창
+		else if (uri.equals("/ccs/join.do")) {
 			uService = new JoinService();
 			uService.execute(request, response);
+			url = "join.jsp";
 		}
+		// 회원가입
+		else if (uri.equals("/ccs/join_proc.do")) {
+			uService = new JoinService();
+			uService.execute(request, response);
+			url = "";
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 
 }
