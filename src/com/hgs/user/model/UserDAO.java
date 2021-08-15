@@ -190,12 +190,10 @@ public class UserDAO {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, user.getName());
-			pstmt.setString(2, user.getId());
-			pstmt.setString(3, user.getPw());
-			pstmt.setInt(4, user.getDept_no());
-			pstmt.setString(5, user.getPhone());
-			pstmt.setString(6, user.getEmail());
+			pstmt.setString(1, user.getPw());
+			pstmt.setString(2, user.getPhone());
+			pstmt.setString(3, user.getEmail());
+			pstmt.setString(4, user.getId());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
