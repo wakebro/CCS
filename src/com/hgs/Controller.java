@@ -55,6 +55,9 @@ public class Controller extends HttpServlet {
 			uService = new JoinProcService();
 			uService.execute(request, response);
 			url = "login.jsp";
+		}// 회원정보 창
+		else if (uri.equals("/ccs/getinfo.do")) {
+			url = "info.jsp";
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);

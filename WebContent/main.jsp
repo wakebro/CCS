@@ -9,5 +9,11 @@
 </head>
 <body>
 	<h1>어서오세요, ${userInfo.name }님</h1>
+	<table border="1">
+		<tr>
+			<td><a href="/ccs/getinfo.do"><input type="submit" value="내 정보"></a></td>
+			<td><a href="#"><input type="submit" value="출/퇴근"></a></td>
+			<td><a href="#"><input type="submit" value="게시판"></a></td>
+	</table>
 </body>
 </html>

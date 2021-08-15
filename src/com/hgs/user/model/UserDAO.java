@@ -117,8 +117,11 @@ public class UserDAO {
 			if(rs.next()) {
 				if(rs.getString("pw").equals(user.getPw())) {
 					userInfo.setName(rs.getString("name"));
+					userInfo.setNo(rs.getInt("no"));
 					userInfo.setId(rs.getString("id"));
 					userInfo.setDept_no(rs.getInt("dept_no"));
+					userInfo.setPhone(rs.getString("phone"));
+					userInfo.setEmail(rs.getString("email"));
 				}
 			}
 			

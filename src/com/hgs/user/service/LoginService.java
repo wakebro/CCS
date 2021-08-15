@@ -2,6 +2,7 @@ package com.hgs.user.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.hgs.user.model.UserDAO;
 import com.hgs.user.model.UserVO;
@@ -17,7 +18,8 @@ public class LoginService implements UService{
 		user.setId(id);
 		user.setPw(pw);
 		UserVO userInfo = dao.login(user);
+		HttpSession session = request.getSession();
 		
-		request.setAttribute("userInfo", userInfo);
+		session.setAttribute("userInfo", userInfo);
 	}
 }
