@@ -45,7 +45,7 @@ public class Controller extends HttpServlet {
 			url = "main.jsp";
 		} 
 		// 로그아웃
-		else if (uri.equals("/ccs/getinfo.do")) {
+		else if (uri.equals("/ccs/logout.do")) {
 			uService = new Logout();
 			uService.execute(request, response);
 			url = "login.jsp";
@@ -64,10 +64,14 @@ public class Controller extends HttpServlet {
 		}
 		// 회원정보 창
 		else if (uri.equals("/ccs/userinfo.do")) {
+			uService = new CheckSessionService();
+			uService.execute(request, response);
 			url = "info.jsp";
 		}
 		// 회원정보 수정창
 		else if (uri.equals("/ccs/update.do")) {
+			uService = new CheckSessionService();
+			uService.execute(request, response);
 			url = "update.jsp";
 		}
 		// 회원정보 수정

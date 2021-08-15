@@ -15,22 +15,31 @@ public class JoinProcService implements UService{
 		String dept_no_=request.getParameter("join_dept");
 		String path = "join_fail.jsp";
 		
-		user.setId(request.getParameter("join_id"));
-		int checkId = dao.joinCheckId(user.getId());
-		
-		if(checkId == 1) {
-			user.setName(request.getParameter("join_name"));
-			user.setPw(request.getParameter("join_pw"));
-			user.setDept_no(Integer.parseInt(dept_no_));
-			user.setPhone(request.getParameter("join_phone"));
-			user.setEmail(request.getParameter("join_email"));
-			dao.join(user);
-		} else if(checkId == 0) {
+		if (user.getId() == null || user.getId().equals("")) {
 			try {
-				RequestDispatcher rd = request.getRequestDispatcher(path);
+				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 				rd.forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+		} else {
+			user.setId(request.getParameter("join_id"));
+			int checkId = dao.joinCheckId(user.getId());
+			
+			if(checkId == 1) {
+				user.setName(request.getParameter("join_name"));
+				user.setPw(request.getParameter("join_pw"));
+				user.setDept_no(Integer.parseInt(dept_no_));
+				user.setPhone(request.getParameter("join_phone"));
+				user.setEmail(request.getParameter("join_email"));
+				dao.join(user);
+			} else if(checkId == 0) {
+				try {
+					RequestDispatcher rd = request.getRequestDispatcher(path);
+					rd.forward(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
