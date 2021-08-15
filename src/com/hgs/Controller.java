@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hgs.user.service.*;
 
-/**
- * Servlet implementation class Controller
- */
 @WebServlet("*.do")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -45,6 +42,7 @@ public class Controller extends HttpServlet {
 		if(uri.equals("/ccs/login_proc.do")) {
 			uService = new LoginService();
 			uService.execute(request, response);
+			url = "main.jsp";
 		} 
 		// 회원가입 창
 		else if (uri.equals("/ccs/join.do")) {
@@ -54,9 +52,9 @@ public class Controller extends HttpServlet {
 		}
 		// 회원가입
 		else if (uri.equals("/ccs/join_proc.do")) {
-			uService = new JoinService();
+			uService = new JoinProcService();
 			uService.execute(request, response);
-			url = "";
+			url = "login.jsp";
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -9,7 +9,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.hgs.dept.model.DeptVO;
-import com.hgs.user.model.UserVO;
 
 public class UserDAO {
 
@@ -70,15 +69,77 @@ public class UserDAO {
 	public void join(UserVO user) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO table";
+		String sql = "INSERT INTO member(name, id, pw, dept_no, phone, email)"
+				+ "VALUES(?, ?, ?, ?, ?, ?)";
 		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getId());
+			pstmt.setString(3, user.getPw());
+			pstmt.setInt(4, user.getDept_no());
+			pstmt.setString(5, user.getPhone());
+			pstmt.setString(6, user.getEmail());
+			
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("에러코드 : " + e);
+		} finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 				
 	}
-
+	// 로그인
+	public UserVO login(UserVO user) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		UserVO userInfo = new UserVO();
+		String sql = "SELECT * from member WHERE id=?";
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user.getId());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getString("pw").equals(user.getPw())) {
+					userInfo.setName(rs.getString("name"));
+					userInfo.setId(rs.getString("id"));
+					userInfo.setDept_no(rs.getInt("dept_no"));
+				}
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error Code : " + e);
+		} finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+				if(rs != null && !rs.isClosed()) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return userInfo;
+	}
 }

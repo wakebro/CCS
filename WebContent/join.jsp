@@ -8,7 +8,7 @@
 <title>회원가입</title>
 </head>
 <body>
-	<form action="/css/join_proc.do" method="post">
+	<form action="/ccs/join_proc.do" method="post">
 		<table border="1">
 			<tr>
 				<th>이름</th>
@@ -20,13 +20,13 @@
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="text" name="join_pw" required="required"></td>
+				<td><input type="password" name="join_pw" required="required"></td>
 			</tr>
 			<tr>
 				<th>부서</th>
 				<td>
-					<select style="width: 100%"><c:forEach var="dept" items="${deptlist}">
-						<option name="join_dept" value=${dept.dept_no }>${dept.dept_name}</option>
+					<select name="join_dept" style="width: 100%"><c:forEach var="dept" items="${deptlist}">
+						<option value=${dept.dept_no }>${dept.dept_name}</option>
 					</c:forEach></select>
 				</td>
 			</tr>
@@ -39,7 +39,7 @@
 				<td><input type="text" name="join_email" required="required"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" name="join_name" value="가입" style="width: 100%" ></td>
+				<td colspan="2"><input type="submit" value="가입" style="width: 100%" ></td>
 			</tr>
 		</table>
 	</form>
