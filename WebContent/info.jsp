@@ -27,10 +27,6 @@
 			<td>${userInfo.no }</td>
 		</tr>
 		<tr>
-			<th>비밀번호</th>
-			<td>${userInfo.pw }</td>
-		</tr>
-		<tr>
 			<th>부서</th>
 			<td>${userDept }</td>
 		</tr>

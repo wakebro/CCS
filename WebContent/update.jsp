@@ -16,7 +16,7 @@
 			<td><a href="#"><input type="submit" value="게시판"></a></td>
 	</table>
 	<br>
-	<form action="/ccs/update_proc.do">
+	<form action="/ccs/update_proc.do" method="post">
 	<table border="1">
 		<tr>
 			<th>이름</th>

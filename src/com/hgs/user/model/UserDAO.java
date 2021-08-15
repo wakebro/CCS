@@ -13,6 +13,8 @@ import com.hgs.dept.model.DeptVO;
 public class UserDAO {
 
 	private DataSource ds;
+	private static final int CHECK_ID_SUCCESS = 1;
+	private static final int CHECK_ID_FAIL = 0;
 
 	private UserDAO() {
 		try {
@@ -65,6 +67,38 @@ public class UserDAO {
 		}
 		return result;
 	}// end getDept
+	// 회원강비 아이디 중복검사
+	public int joinCheckId(String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM member WHERE id = ?";
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				return CHECK_ID_FAIL;
+		} catch (SQLException e) {
+			System.out.println("에러코드 : " + e);
+		} finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return CHECK_ID_SUCCESS;
+	}
 	// 회원가입
 	public void join(UserVO user) {
 		Connection con = null;
