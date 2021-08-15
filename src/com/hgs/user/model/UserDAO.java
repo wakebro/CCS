@@ -9,7 +9,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.hgs.dept.model.DeptVO;
-import com.hgs.user.model;
+import com.hgs.user.model.UserVO;
 
 public class UserDAO {
 
@@ -68,7 +68,17 @@ public class UserDAO {
 	}// end getDept
 	// 회원가입
 	public void join(UserVO user) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = "";
 		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+		} catch (SQLException e) {
+			System.out.println("에러코드 : " + e);
+		}
+				
 	}
 
 }
