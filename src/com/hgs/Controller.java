@@ -44,6 +44,12 @@ public class Controller extends HttpServlet {
 			uService.execute(request, response);
 			url = "main.jsp";
 		} 
+		// 로그아웃
+		else if (uri.equals("/ccs/getinfo.do")) {
+			uService = new Logout();
+			uService.execute(request, response);
+			url = "login.jsp";
+		}
 		// 회원가입 창
 		else if (uri.equals("/ccs/join.do")) {
 			uService = new JoinService();
@@ -55,9 +61,23 @@ public class Controller extends HttpServlet {
 			uService = new JoinProcService();
 			uService.execute(request, response);
 			url = "login.jsp";
-		}// 회원정보 창
-		else if (uri.equals("/ccs/getinfo.do")) {
+		}
+		// 회원정보 창
+		else if (uri.equals("/ccs/userinfo.do")) {
 			url = "info.jsp";
+		}
+		// 회원정보 수정창
+		else if (uri.equals("/ccs/update.do")) {
+			url = "update.jsp";
+		}
+		// 회원정보 수정
+		else if (uri.equals("/ccs/update_proc.do")) {
+			uService = new UpdateService();
+			uService.execute(request, response);
+			url = "info.jsp";
+		}
+		else {
+			url = "login.jsp";
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(url);

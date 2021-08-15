@@ -2,11 +2,13 @@ package com.hgs.user.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.hgs.user.model.UserDAO;
-
-public class GetUserInfoService implements UService {
+public class Logout implements UService{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		
 	}
 }

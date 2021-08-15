@@ -145,4 +145,72 @@ public class UserDAO {
 		
 		return userInfo;
 	}
+	// 로그인 부서정보
+	public String getUserDept(int no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String dept = "";
+		String sql = "SELECT * FROM dept WHERE dept_no=?";
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next())
+				dept = rs.getString("name");
+		} catch (SQLException e) {
+			System.out.println("Error Code : " + e);
+		} finally {
+			try {
+				if (con != null && !con.isClosed()) {
+					con.close();
+				}
+				if (pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+				if (rs != null && !rs.isClosed()) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dept;
+	}// end getUserDept
+	// 회원정보 수정
+	public void update(UserVO user) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE member SET pw=?, phone=?, email=?"
+				+ "WHERE id=?";
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getId());
+			pstmt.setString(3, user.getPw());
+			pstmt.setInt(4, user.getDept_no());
+			pstmt.setString(5, user.getPhone());
+			pstmt.setString(6, user.getEmail());
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("에러코드 : " + e);
+		} finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

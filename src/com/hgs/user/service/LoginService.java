@@ -1,5 +1,6 @@
 package com.hgs.user.service;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,14 +13,16 @@ public class LoginService implements UService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("login_id");
 		String pw = request.getParameter("login_pw");
+		HttpSession session = request.getSession();
 		
 		UserDAO dao = UserDAO.getInstace();
 		UserVO user = new UserVO();
 		user.setId(id);
 		user.setPw(pw);
 		UserVO userInfo = dao.login(user);
-		HttpSession session = request.getSession();
+		String userDept = dao.getUserDept(userInfo.getDept_no());
 		
 		session.setAttribute("userInfo", userInfo);
+		session.setAttribute("userDept", userDept);
 	}
 }
