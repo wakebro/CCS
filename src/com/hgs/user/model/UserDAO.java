@@ -70,7 +70,7 @@ public class UserDAO {
 	public void join(UserVO user) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String sql = "";
+		String sql = "INSERT INTO table";
 		
 		try {
 			con = ds.getConnection();
